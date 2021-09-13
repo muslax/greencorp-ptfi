@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import fetchJson from 'lib/fetchJson'
+import fetchJson from "lib/fetchJson";
 
 const Heading = ({ user, mutateUser }) => {
   async function handleLogout(e) {

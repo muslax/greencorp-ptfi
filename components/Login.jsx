@@ -1,9 +1,15 @@
 import Head from 'next/head'
 import fetchJson from "lib/fetchJson";
+import { useState } from 'react';
 
 const Login = ({ mutateUser }) => {
+  const [submitting, setSubmitting] = useState(false)
+  const [errorMessage, setErrorMessage] = useState(null)
+
   async function handleSubmit(e) {
     e.preventDefault();
+    setSubmitting(true)
+
     try {
       const body = {
         username: e.currentTarget.username.value.toLowerCase(),
@@ -19,8 +25,10 @@ const Login = ({ mutateUser }) => {
       // router.push('/protected') // ROUTES.Dashboard
     } catch (error) {
       console.error('An unexpected error happened:', error)
-      // setErrorMessage(error.data.message)
+      setErrorMessage(error.data.message)
     }
+
+    setSubmitting(false)
   }
 
   const inputStyle = `w-full mb-3 px-3 py-2 rounded border-2 border-gray-300
@@ -51,14 +59,26 @@ const Login = ({ mutateUser }) => {
               placeholder="password"
               className="w-full bg-blue-50 font-bold h-10 mb-3"
             />
+            <div className={submitting
+              ? "submitting h-1 bg-gray-200 mb-3"
+              : "h-1 bg-gray-200 mb-3"}
+            ></div>
             <button
               className={`w-full rounded py-2 bg-blue-500 text-white font-extrabold tracking-wide
               border-2 border-transparent focus:outline-none focus:border-blue-700
               `}
             >Submit</button>
           </form>
+          {errorMessage && (
+            <p className="mt-3 text-center text-red-500">{errorMessage}</p>
+          )}
         </div>
       </main>
+      <style jsx>{`
+      .submitting {
+        background-image: url(mango-in-progress-01.gif);
+      }
+      `}</style>
     </>
   )
 }

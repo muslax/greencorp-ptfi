@@ -4,6 +4,7 @@ import useUser from 'hooks/useUser'
 import fetchJson from 'lib/fetchJson'
 
 import Login from 'components/Login'
+import MyResponden from 'components/MyResponden'
 
 export default function Home() {
   const { user, mutateUser } = useUser()
@@ -66,7 +67,7 @@ export default function Home() {
         risus tincidunt vestibulum, finibus suscipit ad blandit ligula lobortis
         vivamus mollis, netus metus pretium etiam tempor torquent nam a.
         </p>
-        {/* <MyResponden user={user} /> */}
+        <MyResponden user={user} />
       </div>
     </div>
   )

@@ -14,14 +14,14 @@ export default withSession(async (req, res) => {
     console.log("RS", rs)
 
     if (!rs) {
-      return res.status(404).json({ message: "[NOT FOUND] Username/password salah." });
+      return res.status(404).json({ message: "[01] Username/password salah." });
     }
 
     // const verified = bcrypt.compareSync(password, rs.hash);
     // Temporarily using simple trick
     const verified = password == rs.xfpwd.split('').reverse().join('')
     if (!verified) {
-      return res.status(404).json({ message: "[FAIL] Username/password salah." });
+      return res.status(404).json({ message: "[02] Username/password salah." });
     }
 
     const user = {
@@ -40,11 +40,3 @@ export default withSession(async (req, res) => {
     res.json({ message: "[3] Username/password salah." });
   }
 });
-
-const sampleUser = {
-  "_id": "",
-  "username": "",
-  "fullname": "",
-  "hash": "",
-  "xfpwd": "",
-}
