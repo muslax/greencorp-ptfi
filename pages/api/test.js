@@ -8,7 +8,7 @@ export default async (req, res) => {
 
   try {
     const { db } = await connect();
-    const rs = await db.collection(MONGO_DOC.Constants).find({}).toArray()
+    const rs = await db.collection(MONGO_DOC.Users).find({}).toArray()
     console.log(rs)
     return res.json(rs);
   } catch (error) {
