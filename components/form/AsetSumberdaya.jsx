@@ -59,58 +59,6 @@ export default function AsetSumberdaya({ user, isOwner, responden, constants, mu
     }
   }
 
-  function newTanaman() {
-    return {
-      _id: null,
-      _rid: responden._id,
-      tipe: "tanaman",
-      jenis: "",
-      luasPanen: 0,
-      kgDikonsumsiPerTahun: 0,
-      kgDijualPerTahun: 0,
-      nilaiJualPerTahun: 0,
-    }
-  }
-
-  function newTernak() {
-    return {
-      _id: null,
-      _rid: responden._id,
-      tipe: "ternak",
-      jenis: "",
-      jumlah: 0,
-      kgDikonsumsiPerMinggu: 0,
-      kgDijualPerMinggu: 0,
-      nilaiJualPerMinggu: 0,
-    }
-  }
-
-  function newIkan() {
-    return {
-      _id: null,
-      _rid: responden._id,
-      tipe: "ikan",
-      jenis: "",
-      kgDikonsumsiPerMinggu: 0,
-      kgDijualPerMinggu: 0,
-      nilaiJualPerMinggu: 0,
-    }
-  }
-
-  function newHasilHutan() {
-    return {
-      _id: null,
-      _rid: responden._id,
-      tipe: "hasilhutan",
-      jenis: "",
-      satuan: "", // kg / ekor
-      periode: "",
-      dikonsumsiPerbulan: 0,
-      dijualPerBulan: 0,
-      nilaiJualPerBulan: 0,
-    }
-  }
-
   async function saveRumah(e) {
     try {
       await fetchJson("/api/post?q=save-rumah", generatePOSTData(model));
@@ -120,28 +68,6 @@ export default function AsetSumberdaya({ user, isOwner, responden, constants, mu
       alert("ERROR");
       // setFormTanaman(false);
     }
-  }
-
-  async function saveTanaman(e) {
-    try {
-      await fetchJson("/api/post?q=save-tanaman", generatePOSTData(modelTanaman));
-      mutateDaftarTanaman();
-      setFormTanaman(false);
-    } catch (error) {
-      alert("ERROR");
-      setFormTanaman(false);
-    }
-  }
-
-  async function deleteAsetLain(e) {
-    try {
-      await fetchJson("/api/post?q=delete-aset-lain", generatePOSTData({ id: selected._id }))
-      mutateDaftarTanaman();
-    } catch (error) {
-      alert("ERROR")
-    }
-
-    setSelected(null);
   }
 
   function rumahReady() {

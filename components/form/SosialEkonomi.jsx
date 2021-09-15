@@ -371,7 +371,7 @@ export default function SosialEkonomi({ user, isOwner, responden, constants, mut
 
           <DataRow text="Keberadaan tabungan">
             <select
-              className=""
+              className="mr-3"
               disabled={!isOwner}
               value={model.tabungan}
               onChange={e => {
@@ -391,7 +391,7 @@ export default function SosialEkonomi({ user, isOwner, responden, constants, mut
               <input
                 type="number"
                 min={0}
-                className="w-36 ml-4 mt-1"
+                className="w-36 mr-3 mt-1"
                 placeholder="Berapa?"
                 disabled={!isOwner}
                 value={model.jumlahTabungan}
@@ -399,7 +399,7 @@ export default function SosialEkonomi({ user, isOwner, responden, constants, mut
               />
               <input
                 type="text"
-                className="ml-4 mt-1"
+                className="mt-1"
                 placeholder="Di mana?"
                 disabled={!isOwner}
                 value={model.tempatTabungan}

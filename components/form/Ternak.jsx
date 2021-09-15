@@ -56,9 +56,9 @@ export default function Ternak({ responden, isOwner, daftar, mutate }) {
 
   return (
     <div>
-      <div className="flex text-base mt-4 mb-2">
+      <div className="flex items-end text-base mt-4 mb-2">
         <p className="flex-grow">Hewan ternak</p>
-        <p>Satuan: <span className="text-red-600 font-bold">ekor/minggu</span></p>
+        <p className="text-sm">Satuan: <span className="text-red-600 font-bold">ekor/minggu</span></p>
       </div>
       <div className="overflow-x-auto">
         <table className="min-w-full border-t border-blue-200">

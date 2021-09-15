@@ -140,7 +140,7 @@ const AnggotaKeluarga = ({ user, responden }) => {
       {!form && !selected && userIsOwner && (
         <div className="my-6">
           <button
-            className="btnActive"
+            className="btnSubSection"
             onClick={e => {
               setModel(newModel());
               setForm(true);
@@ -258,7 +258,7 @@ const AnggotaKeluarga = ({ user, responden }) => {
             <span className="block">Pekerjaan informal</span>
             <div className="flex flex-wrap">
               {constants.PekerjaanLain.map((p, i) => (
-                <label key={p} className="w-72 flex items-center space-x-1 mr-4 mt-1">
+                <label key={p} className="w-60 flex items-center space-x-1 mr-4 mt-1">
                   <input
                     type="checkbox"
                     value={p}

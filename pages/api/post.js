@@ -79,6 +79,7 @@ ACCEPTED_QUERIES['save-responden'] = async function (req, res) {
         data._id = idResponden;
         const rs = await db.collection(MONGO_DOC.Responden).insertOne(data);
 
+        // Save anggota kk
         const asAnggota = {
           _id: ObjectId().toString(),
           _rid: idResponden,
@@ -93,6 +94,49 @@ ACCEPTED_QUERIES['save-responden'] = async function (req, res) {
           pekerjaanUtama: data.pekerjaanUtama,
           pekerjaanLain: data.pekerjaanLain,
         }
+
+        // Add rumah
+        await db.collection(MONGO_DOC.AsetRumah).insertOne({
+          _id: ObjectId().toString(),
+          _rid: idResponden,
+          jenisRumah: "",
+          jumlahRuang: "",
+          statusRumah: "",
+          buktiKepemilikan: "",
+          luasTanah: 0,
+          luasBangunan: 0,
+          luasLahanProduktif: 0,
+          luasLahanNonProduktif: 0,
+          luasLahanLain: 0,
+          sumberListrik: "",
+          // kendaraan: [],
+          sepeda: 0,
+          sepedaMotor: 0,
+          mobil: 0,
+          traktor: 0,
+          perahuTradisional: 0,
+          perahuMesinTempel: 0,
+        })
+
+        // Add klaim adat
+        await db.collection(MONGO_DOC.KlaimAdat).insertOne({
+          _id: ObjectId().toString(),
+          _rid: idResponden,
+          hakUlayat: "",
+          infoHakUlayat: "",
+          peningkatanHakUlayat: "",
+          permintaanPeningkatanHakUlayat: [],
+          danaKemitraan: "",
+          manfaatDanaKemitraan: [],
+          danaPerwalian: "",
+          infoDanaPerwalian: "",
+          penghargaanPTFI: "",
+          infoPenghargaanPTFI: "",
+          perjanjian1974: "",
+          infoPerjanjian1974: "",
+          mou2000: "",
+          infoMou2000: "",
+        })
 
         await db.collection(MONGO_DOC.Anggota).insertOne(asAnggota);
 
@@ -382,6 +426,43 @@ ACCEPTED_QUERIES['delete-aset'] = async function (req, res) {
     console.log(id);
     const rs =  await db.collection(MONGO_DOC.AsetLain).findOneAndDelete({ _id: id })
     return res.json(rs);
+  } catch (error) {
+    return res.status(error.status || 500).end(error.message)
+  }
+}
+
+ACCEPTED_QUERIES['save-klaim-adat'] = async function (req, res) {
+  try {
+    const { db } = await connect();
+    const data = req.body;
+    if (data._id) {
+      const rs = await db.collection(MONGO_DOC.KlaimAdat).findOneAndUpdate(
+        { _id: data._id },
+        { $set: {
+          hakUlayat: data.hakUlayat,
+          infoHakUlayat: data.infoHakUlayat,
+          peningkatanHakUlayat: data.peningkatanHakUlayat,
+          permintaanPeningkatanHakUlayat: data.permintaanPeningkatanHakUlayat,
+          danaKemitraan: data.danaKemitraan,
+          manfaatDanaKemitraan: data.manfaatDanaKemitraan,
+          danaPerwalian: data.danaPerwalian,
+          infoDanaPerwalian: data.infoDanaPerwalian,
+          penghargaanPTFI: data.penghargaanPTFI,
+          infoPenghargaanPTFI: data.infoPenghargaanPTFI,
+          perjanjian1974: data.perjanjian1974,
+          infoPerjanjian1974: data.infoPerjanjian1974,
+          mou2000: data.mou2000,
+          infoMou2000: data.infoMou2000,
+        }}
+      )
+      console.log(rs)
+      return res.json(rs);
+    } else {
+      data._id = ObjectId().toString();
+      const rs = await db.collection(MONGO_DOC.KlaimAdat).insertOne(data);
+      console.log(rs)
+      return res.json(rs);
+    }
   } catch (error) {
     return res.status(error.status || 500).end(error.message)
   }

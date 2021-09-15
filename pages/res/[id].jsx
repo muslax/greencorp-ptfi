@@ -11,6 +11,7 @@ import Responden from 'components/form/Responden'
 import AnggotaKeluarga from 'components/form/AnggotaKeluarga';
 import SosialEkonomi from 'components/form/SosialEkonomi';
 import AsetSumberdaya from 'components/form/AsetSumberdaya';
+import KlaimAdat from "components/form/KlaimAdat";
 
 export default function Index() {
   const { user, mutateUser } = useUser({ redirectTo: "/" });
@@ -55,6 +56,16 @@ export default function Index() {
 
       <Section title="Aset dan Pengelolaan Sumberdaya">
         <AsetSumberdaya
+          user={user}
+          isOwner={isOwner}
+          responden={responden}
+          constants={constants}
+          mutate={mutateResponden}
+        />
+      </Section>
+
+      <Section title="Klaim Masyarakat Adat">
+        <KlaimAdat
           user={user}
           isOwner={isOwner}
           responden={responden}
