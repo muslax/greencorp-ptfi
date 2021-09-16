@@ -20,6 +20,9 @@ input[type="date"] {
 select {
   @apply mt-1 truncate;
 }
+textarea {
+  @apply text-sm;
+}
 ___input {
   @apply w-full h-9 px-3 border-b border-blue-200 focus:border-blue-400 focus:outline-none;
 }

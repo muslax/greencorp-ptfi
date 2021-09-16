@@ -12,6 +12,7 @@ import AnggotaKeluarga from 'components/form/AnggotaKeluarga';
 import SosialEkonomi from 'components/form/SosialEkonomi';
 import AsetSumberdaya from 'components/form/AsetSumberdaya';
 import KlaimAdat from "components/form/KlaimAdat";
+import KesehatanMasyarakat from "components/form/KesehatanMasyarakat";
 
 export default function Index() {
   const { user, mutateUser } = useUser({ redirectTo: "/" });
@@ -36,7 +37,7 @@ export default function Index() {
 
       <div className="spacer h-24"></div>
 
-      <Section>
+      {/* <Section>
         <Responden user={user} responden={responden} mutateResponden={mutateResponden} />
       </Section>
 
@@ -62,10 +63,20 @@ export default function Index() {
           constants={constants}
           mutate={mutateResponden}
         />
-      </Section>
+      </Section> */}
 
       <Section title="Klaim Masyarakat Adat">
         <KlaimAdat
+          user={user}
+          isOwner={isOwner}
+          responden={responden}
+          constants={constants}
+          mutate={mutateResponden}
+        />
+      </Section>
+
+      <Section title="Kesehatan Masyarakat">
+        <KesehatanMasyarakat
           user={user}
           isOwner={isOwner}
           responden={responden}

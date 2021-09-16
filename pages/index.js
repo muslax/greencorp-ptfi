@@ -68,6 +68,9 @@ export default function Home() {
         vivamus mollis, netus metus pretium etiam tempor torquent nam a.
         </p>
         <MyResponden user={user} />
+
+        <pre>{JSON.stringify(user, null, 2)}</pre>
+
       </div>
     </div>
   )

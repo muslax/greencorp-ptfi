@@ -146,6 +146,21 @@ ACCEPTED_QUERIES['get-klaim-adat'] = async function (req, res) {
   }
 }
 
+ACCEPTED_QUERIES['get-kesmas'] = async function (req, res) {
+  try {
+    const { db } = await connect();
+    const { rid } = req.query;
+
+    const rs = await db.collection(MONGO_DOC.Kesmas).findOne({ _rid: rid });
+
+    return res.json( rs );
+  } catch (error) {
+    return res.status(error.status || 500).end(error.message)
+  }
+}
+
+// ==========
+
 ACCEPTED_QUERIES['my-responden'] = async function (req, res) {
   try {
     const apiUser = req.session.get("user");

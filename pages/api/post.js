@@ -2,6 +2,9 @@ import { connect } from "lib/mongodb";
 import { MONGO_DOC } from "lib/constants";
 import withSession from "lib/session";
 import { ObjectId } from "bson";
+import KesmasModel from "lib/kesmas";
+import KlaimModel from "lib/klaim-adat";
+import ModelAsetRumah from "lib/aset-rumah";
 
 const ACCEPTED_QUERIES = {}
 
@@ -69,6 +72,8 @@ ACCEPTED_QUERIES['delete-responden'] = async function (req, res) {
 }
 
 ACCEPTED_QUERIES['save-responden'] = async function (req, res) {
+  const apiUser = req.session.get("user");
+  const type = apiUser.type == "dataentry" ? "" : "sample";
   const data = req.body;
   const { db, client } = await connect();
   const session = client.startSession()
@@ -94,51 +99,66 @@ ACCEPTED_QUERIES['save-responden'] = async function (req, res) {
           pekerjaanUtama: data.pekerjaanUtama,
           pekerjaanLain: data.pekerjaanLain,
         }
+        await db.collection(MONGO_DOC.Anggota).insertOne(asAnggota);
 
         // Add rumah
-        await db.collection(MONGO_DOC.AsetRumah).insertOne({
-          _id: ObjectId().toString(),
-          _rid: idResponden,
-          jenisRumah: "",
-          jumlahRuang: "",
-          statusRumah: "",
-          buktiKepemilikan: "",
-          luasTanah: 0,
-          luasBangunan: 0,
-          luasLahanProduktif: 0,
-          luasLahanNonProduktif: 0,
-          luasLahanLain: 0,
-          sumberListrik: "",
-          // kendaraan: [],
-          sepeda: 0,
-          sepedaMotor: 0,
-          mobil: 0,
-          traktor: 0,
-          perahuTradisional: 0,
-          perahuMesinTempel: 0,
-        })
+        const rumah = ModelAsetRumah;
+        rumah._id = ObjectId().toString();
+        rumah._rid = idResponden;
+        await db.collection(MONGO_DOC.AsetRumah).insertOne(rumah);
+        // await db.collection(MONGO_DOC.AsetRumah).insertOne({
+        //   _id: ObjectId().toString(),
+        //   _rid: idResponden,
+        //   jenisRumah: "",
+        //   jumlahRuang: "",
+        //   statusRumah: "",
+        //   buktiKepemilikan: "",
+        //   luasTanah: 0,
+        //   luasBangunan: 0,
+        //   luasLahanProduktif: 0,
+        //   luasLahanNonProduktif: 0,
+        //   luasLahanLain: 0,
+        //   sumberListrik: "",
+        //   // kendaraan: [],
+        //   sepeda: 0,
+        //   sepedaMotor: 0,
+        //   mobil: 0,
+        //   traktor: 0,
+        //   perahuTradisional: 0,
+        //   perahuMesinTempel: 0,
+        // })
 
         // Add klaim adat
-        await db.collection(MONGO_DOC.KlaimAdat).insertOne({
-          _id: ObjectId().toString(),
-          _rid: idResponden,
-          hakUlayat: "",
-          infoHakUlayat: "",
-          peningkatanHakUlayat: "",
-          permintaanPeningkatanHakUlayat: [],
-          danaKemitraan: "",
-          manfaatDanaKemitraan: [],
-          danaPerwalian: "",
-          infoDanaPerwalian: "",
-          penghargaanPTFI: "",
-          infoPenghargaanPTFI: "",
-          perjanjian1974: "",
-          infoPerjanjian1974: "",
-          mou2000: "",
-          infoMou2000: "",
-        })
+        const klaimModel = KlaimModel;
+        klaimModel._id = ObjectId().toString();
+        klaimModel._rid = idResponden;
+        await db.collection(MONGO_DOC.KlaimAdat).insertOne(klaimModel);
+        // await db.collection(MONGO_DOC.KlaimAdat).insertOne({
+        //   _id: ObjectId().toString(),
+        //   _rid: idResponden,
+        //   hakUlayat: "",
+        //   infoHakUlayat: "",
+        //   peningkatanHakUlayat: "",
+        //   permintaanPeningkatanHakUlayat: [],
+        //   danaKemitraan: "",
+        //   manfaatDanaKemitraan: [],
+        //   danaPerwalian: "",
+        //   infoDanaPerwalian: "",
+        //   penghargaanPTFI: "",
+        //   infoPenghargaanPTFI: "",
+        //   perjanjian1974: "",
+        //   infoPerjanjian1974: "",
+        //   mou2000: "",
+        //   infoMou2000: "",
+        // })
 
-        await db.collection(MONGO_DOC.Anggota).insertOne(asAnggota);
+        // Add kesmas
+        const kesmasModel = KesmasModel;
+        kesmasModel._id = ObjectId().toString(),
+        kesmasModel._rid = idResponden,
+        await db.collection(MONGO_DOC.Kesmas).insertOne(kesmasModel);
+
+
 
         return res.json(rs);
       } else {
@@ -436,30 +456,53 @@ ACCEPTED_QUERIES['save-klaim-adat'] = async function (req, res) {
     const { db } = await connect();
     const data = req.body;
     if (data._id) {
+      const id = data._id;
+      delete data._id;
       const rs = await db.collection(MONGO_DOC.KlaimAdat).findOneAndUpdate(
-        { _id: data._id },
-        { $set: {
-          hakUlayat: data.hakUlayat,
-          infoHakUlayat: data.infoHakUlayat,
-          peningkatanHakUlayat: data.peningkatanHakUlayat,
-          permintaanPeningkatanHakUlayat: data.permintaanPeningkatanHakUlayat,
-          danaKemitraan: data.danaKemitraan,
-          manfaatDanaKemitraan: data.manfaatDanaKemitraan,
-          danaPerwalian: data.danaPerwalian,
-          infoDanaPerwalian: data.infoDanaPerwalian,
-          penghargaanPTFI: data.penghargaanPTFI,
-          infoPenghargaanPTFI: data.infoPenghargaanPTFI,
-          perjanjian1974: data.perjanjian1974,
-          infoPerjanjian1974: data.infoPerjanjian1974,
-          mou2000: data.mou2000,
-          infoMou2000: data.infoMou2000,
-        }}
+        { _id: id },
+        { $set: data }
       )
       console.log(rs)
       return res.json(rs);
     } else {
       data._id = ObjectId().toString();
       const rs = await db.collection(MONGO_DOC.KlaimAdat).insertOne(data);
+      console.log(rs)
+      return res.json(rs);
+    }
+  } catch (error) {
+    return res.status(error.status || 500).end(error.message)
+  }
+}
+
+ACCEPTED_QUERIES['save-kesmas'] = async function (req, res) {
+  try {
+    const { db } = await connect();
+    const data = req.body;
+    console.log("DATA", data)
+
+    // const id = data._id;
+    // delete data._id;
+    // delete data._rid;
+    // console.log("DATASHIFT", data)
+    // console.log("ID", id)
+
+    // return res.json({ msg: "OKE" })
+
+    if (data._id) {
+      const id = data._id;
+      delete data._id;
+      delete data._rid;
+
+      const rs = await db.collection(MONGO_DOC.Kesmas).findOneAndUpdate(
+        { _id: id },
+        { $set: { ...data }}
+      )
+      console.log(rs)
+      return res.json(rs);
+    } else {
+      data._id = ObjectId().toString();
+      const rs = await db.collection(MONGO_DOC.Kesmas).insertOne(data);
       console.log(rs)
       return res.json(rs);
     }

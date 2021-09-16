@@ -13,6 +13,7 @@ function createModel(user) {
     _id: null,
     enumerator: "",
     dataEntri: user.fullname,
+    type: user.type == "dataentri" ? "data" : "sample",
     tanggal: "",
     desa: "",
     kelompokDesa: "",

@@ -339,12 +339,14 @@ export default function KlaimAdat({ user, constants, responden, isOwner, mutate 
               }))}
             />
           </DataRow>
+          {isOwner &&
           <DataRow text={<></>}>
             <div className="pt-4">
               {!isDirty() && <button className="btnSubSectionDisabled">Save</button>}
               {isDirty() && <button onClick={saveData} className="btnSubSection">Save</button>}
             </div>
           </DataRow>
+          }
         </tbody>
       </table>
       {/* <pre>{JSON.stringify(modelFields(klaim), null, 2)}</pre> */}

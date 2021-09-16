@@ -57,7 +57,10 @@ export default function MyResponden({ user }) {
                 <td className="p-2 w-12">{index + 1}</td>
                 <td className="p-2 font-bold">
                   <Link href={`/res/${item._id}`}>
-                    <a className="hover:text-blue-500">{item.nama}</a>
+                    <a className="hover:text-blue-500">
+                      {item.nama}
+                      {item.type == "sample" ? " (Sample)" : ""}
+                    </a>
                   </Link>
                 </td>
                 <td className="p-2 hidden sm:table-cell">{item.desa}</td>
@@ -100,7 +103,10 @@ export default function MyResponden({ user }) {
                 <td className="p-2 w-12">{myDataLength + index + 1}</td>
                 <td className="p-2 font-bold">
                   <Link href={`/res/${item._id}`}>
-                    <a className="hover:text-blue-500">{item.nama}</a>
+                    <a className="hover:text-blue-500">
+                      {item.nama}
+                      {item.type == "sample" ? " (Sample)" : ""}
+                    </a>
                   </Link>
                 </td>
                 <td className="p-2 hidden sm:table-cell">{item.desa}</td>
@@ -112,6 +118,7 @@ export default function MyResponden({ user }) {
           </tbody>
         </table>
       </div>
+      {/* <pre>{JSON.stringify(daftarResponden, null, 2)}</pre> */}
     </div>
   )
 }
