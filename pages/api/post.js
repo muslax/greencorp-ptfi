@@ -61,7 +61,8 @@ ACCEPTED_QUERIES['delete-responden'] = async function (req, res) {
       await db.collection(MONGO_DOC.Anggota).deleteMany({ _rid: id })
       await db.collection(MONGO_DOC.AsetRumah).deleteMany({ _rid: id })
       await db.collection(MONGO_DOC.AsetLain).deleteMany({ _rid: id })
-      // await db.collection(MONGO_DOC.Anggota).deleteMany({ _rid: id })
+      await db.collection(MONGO_DOC.KlaimAdat).deleteMany({ _rid: id })
+      await db.collection(MONGO_DOC.Kesmas).deleteMany({ _rid: id })
 
       const rs = await db.collection(MONGO_DOC.Responden).findOneAndDelete({ _id: id });
       return res.json(rs);

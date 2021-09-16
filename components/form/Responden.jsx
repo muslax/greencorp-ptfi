@@ -14,7 +14,7 @@ function createModel(user) {
     enumerator: "",
     dataEntri: user.fullname,
     type: user.type == "dataentri" ? "data" : "sample",
-    tanggal: "",
+    tanggal: new Date().toISOString().substr(0, 10),
     desa: "",
     kelompokDesa: "",
     nama: "",

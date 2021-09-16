@@ -209,9 +209,9 @@ export default function KesehatanMasyarakat({ user, constants, responden, isOwne
             onChange={e => {
               const v = e.target.value
               setModel(m => ({...m, tempatBerobat: (v) }))
-              if (v != "Ada") {
-                setModel(m => ({...m, alasanKeDukun: "" }))
-              }
+              // if (v != "Ada") {
+              //   setModel(m => ({...m, tempatBerobat: "" }))
+              // }
             }}
           />
           {model.tempatBerobat.includes("dukun") &&
@@ -226,17 +226,17 @@ export default function KesehatanMasyarakat({ user, constants, responden, isOwne
           <DataRowSelect
             text="Tempat berobat terjangkau"
             isOwner={isOwner}
-            value={model.tempatBerobat}
+            value={model.aksesBerobat}
             options={constants.YaTidak}
             onChange={e => {
               const v = e.target.value
-              setModel(m => ({...m, tempatBerobat: (v) }))
-              if (v != "Ada") {
-                setModel(m => ({...m, infoAksesBerobat: "" }))
-              }
+              setModel(m => ({...m, aksesBerobat: (v) }))
+              // if (v != "Ada") {
+              //   setModel(m => ({...m, aksesBerobat: "" }))
+              // }
             }}
           />
-          {model.tempatBerobat == "Tidak" &&
+          {model.aksesBerobat == "Tidak" &&
           <DataRowInput
             text={<p className="text-blue-500">&#10148; Kenapa?</p>}
             isOwner={isOwner}
@@ -910,7 +910,7 @@ export default function KesehatanMasyarakat({ user, constants, responden, isOwne
 
         </tbody>
       </table>
-      <pre className="my-10 text-xs font-light">{JSON.stringify(model, null, 2)}</pre>
+      {/* <pre className="my-10 text-xs font-light">{JSON.stringify(model, null, 2)}</pre> */}
     </div>
   )
 }

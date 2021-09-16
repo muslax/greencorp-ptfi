@@ -37,7 +37,7 @@ export default function Index() {
 
       <div className="spacer h-24"></div>
 
-      {/* <Section>
+      <Section>
         <Responden user={user} responden={responden} mutateResponden={mutateResponden} />
       </Section>
 
@@ -63,7 +63,7 @@ export default function Index() {
           constants={constants}
           mutate={mutateResponden}
         />
-      </Section> */}
+      </Section>
 
       <Section title="Klaim Masyarakat Adat">
         <KlaimAdat

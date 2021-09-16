@@ -28,10 +28,10 @@ export default function Home() {
             Survey Rumah Tangga<br/>AMDAL PTFI 2021
           </h1>
           <div className="flex items-end space-x-2">
-            <svg xmlns="http://www.w3.org/2000/svg" className="text-blue-600 h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" className="text-yellow-400 h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd" />
             </svg>
-            <p className="flex-grow text-2xl font-bold">{user.fullname}</p>
+            <p className="flex-grow text-2xl text-pink-500 font-bold">{user.fullname}</p>
             <Link href="/new">
               <a
               className="rounded bg-blue-500 text-white font-medium px-4 py-2 focus:outline-none focus:bg-blue-600 hover:bg-blue-600 active:bg-blue-700"
@@ -69,7 +69,7 @@ export default function Home() {
         </p>
         <MyResponden user={user} />
 
-        <pre>{JSON.stringify(user, null, 2)}</pre>
+        {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
 
       </div>
     </div>
