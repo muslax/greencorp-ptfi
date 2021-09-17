@@ -39,7 +39,7 @@ export function DataRowSelect({
           onChange={onChange}
         >
           <option value="">-</option>
-          {options.map((e, i) => (
+          {options?.map((e, i) => (
             <option key={`KEY-${i}`} value={e}>{e}</option>
           ))}
           {lainnya && <option value="Lainnya">Lainnya</option>}
