@@ -329,7 +329,7 @@ export default function Persepsi({ user, constants, responden, isOwner }) {
           </DataRow>}
         </tbody>
       </table>
-      <pre>{JSON.stringify(model, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(model, null, 2)}</pre> */}
     </div>
   )
 }

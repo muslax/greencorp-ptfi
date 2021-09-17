@@ -14,6 +14,7 @@ import AsetSumberdaya from 'components/form/AsetSumberdaya';
 import KlaimAdat from "components/form/KlaimAdat";
 import KesehatanMasyarakat from "components/form/KesehatanMasyarakat";
 import Persepsi from "components/form/Persepsi";
+import Nelayan from "components/form/Nelayan";
 
 export default function Index() {
   const { user, mutateUser } = useUser({ redirectTo: "/" });
@@ -76,7 +77,7 @@ export default function Index() {
         />
       </Section> */}
 
-      <Section title="Kesehatan Masyarakat">
+      {/* <Section title="Kesehatan Masyarakat">
         <KesehatanMasyarakat
           user={user}
           isOwner={isOwner}
@@ -93,6 +94,15 @@ export default function Index() {
           responden={responden}
           constants={constants}
           mutate={mutateResponden}
+        />
+      </Section> */}
+
+      <Section title="Dampak Terhadap Nelayan">
+        <Nelayan
+          user={user}
+          isOwner={isOwner}
+          responden={responden}
+          constants={constants}
         />
       </Section>
 

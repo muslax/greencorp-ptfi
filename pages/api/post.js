@@ -6,6 +6,7 @@ import KesmasModel from "lib/kesmas";
 import KlaimModel from "lib/klaim-adat";
 import ModelAsetRumah from "lib/aset-rumah";
 import PersepsiModel from "lib/persepsi";
+import { ModelNelayan } from "lib/models";
 
 const ACCEPTED_QUERIES = {}
 
@@ -126,6 +127,12 @@ ACCEPTED_QUERIES['save-responden'] = async function (req, res) {
         persepsi._id = ObjectId().toString();
         persepsi._rid = idResponden;
         await db.collection(MONGO_DOC.Persepsi).insertOne(persepsi);
+
+        // Add nelayan
+        const nelayan = ModelNelayan;
+        nelayan._id = ObjectId().toString();
+        nelayan._rid = idResponden;
+        await db.collection(MONGO_DOC.Nelayan).insertOne(nelayan);
 
 
 
@@ -500,6 +507,34 @@ ACCEPTED_QUERIES["save-persepsi"] = async function (req, res) {
     } else {
       data._id = ObjectId().toString();
       const rs = await db.collection(MONGO_DOC.Persepsi).insertOne(data);
+      console.log(rs)
+      return res.json(rs);
+    }
+  } catch (error) {
+    return res.status(error.status || 500).end(error.message)
+  }
+}
+
+ACCEPTED_QUERIES["save-nelayan"] = async function (req, res) {
+  try {
+    const { db } = await connect();
+    const data = req.body;
+    console.log("DATA", data)
+
+    if (data._id) {
+      const id = data._id;
+      delete data._id;
+      delete data._rid;
+
+      const rs = await db.collection(MONGO_DOC.Nelayan).findOneAndUpdate(
+        { _id: id },
+        { $set: { ...data }}
+      )
+      console.log(rs)
+      return res.json(rs);
+    } else {
+      data._id = ObjectId().toString();
+      const rs = await db.collection(MONGO_DOC.Nelayan).insertOne(data);
       console.log(rs)
       return res.json(rs);
     }

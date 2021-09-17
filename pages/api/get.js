@@ -172,6 +172,19 @@ ACCEPTED_QUERIES['get-persepsi'] = async function (req, res) {
   }
 }
 
+ACCEPTED_QUERIES['get-nelayan'] = async function (req, res) {
+  try {
+    const { db } = await connect();
+    const { rid } = req.query;
+
+    const rs = await db.collection(MONGO_DOC.Nelayan).findOne({ _rid: rid });
+
+    return res.json( rs );
+  } catch (error) {
+    return res.status(error.status || 500).end(error.message)
+  }
+}
+
 // ==========
 
 ACCEPTED_QUERIES['my-responden'] = async function (req, res) {
