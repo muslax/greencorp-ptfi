@@ -448,17 +448,22 @@ export default function KesehatanMasyarakat({ user, constants, responden, isOwne
               type="text"
               className="w-full mt-1"
               disabled={!isOwner}
-              defaultValue={model.masalahAir.filter(i => !constants.PersoalanAir.includes(i))[0] || ""}
+              defaultValue={model.masalahAir?.filter(i => !constants.PersoalanAir?.includes(i))[0] || ""}
+              onFocus={e => {
+                const array = [...model.masalahAir];
+                const index = array.indexOf(e.target.value);
+                if (index >= 0) array.splice(index, 1);
+                setModel(prev => ({ ...prev, masalahAir: array }));
+              }}
               onBlur={e => {
                 const val = e.target.value.trim();
-                const array = model.masalahAir;
+                const array = [...model.masalahAir];
                 if (val) {
                   setModel(prev => ({...prev,
                     masalahAir: [...array, val]
                   }))
                 } else {
-                  const legalItems = model.masalahAir
-                    .filter(item => constants.PersoalanAir.includes(item));
+                  const legalItems = model.masalahAir?.filter(item => constants.PersoalanAir?.includes(item));
                   setModel(prev => ({...prev,
                     masalahAir: legalItems
                   }))
@@ -832,7 +837,12 @@ export default function KesehatanMasyarakat({ user, constants, responden, isOwne
             isOwner={isOwner}
             value={model.konsumsiMiras}
             options={constants.Ada}
-            onChange={e => setModel(m => ({...m, konsumsiMiras: (e.target.value) }))}
+            onChange={e => {
+              setModel(m => ({...m, konsumsiMiras: (e.target.value) }))
+              if (e.target.value?.includes("Tidak")) {
+                setModel(m => ({...m, frekuensiMiras: 0 }))
+              }
+            }}
           />
           {model.konsumsiMiras == "Ada" && <DataRowInput
             text={<p className="text-blue-500">&#10148; Berapa kali dalam satu minggu?</p>}
@@ -880,17 +890,22 @@ export default function KesehatanMasyarakat({ user, constants, responden, isOwne
               type="text"
               className="w-full mt-1"
               disabled={!isOwner}
-              defaultValue={model.dampakMiras.filter(i => !constants.DampakMiras.includes(i))[0] || ""}
+              defaultValue={model.dampakMiras?.filter(i => !constants.DampakMiras?.includes(i))[0] || ""}
+              onFocus={e => {
+                const array = [...model.dampakMiras];
+                const index = array.indexOf(e.target.value);
+                if (index >= 0) array.splice(index, 1);
+                setModel(prev => ({ ...prev, dampakMiras: array }));
+              }}
               onBlur={e => {
                 const val = e.target.value.trim();
-                const array = model.dampakMiras;
+                const array = [...model.dampakMiras];
                 if (val) {
                   setModel(prev => ({...prev,
                     dampakMiras: [...array, val]
                   }))
                 } else {
-                  const legalItems = model.dampakMiras
-                    .filter(item => constants.DampakMiras.includes(item));
+                  const legalItems = model.dampakMiras?.filter(item => constants.DampakMiras?.includes(item));
                   setModel(prev => ({...prev,
                     dampakMiras: legalItems
                   }))

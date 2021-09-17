@@ -6,8 +6,8 @@ import { isEqual } from "lodash";
 import { ModelNelayan } from "lib/models";
 import useNelayan from "hooks/useNelayan";
 
-export default function Nelayan({ user, constants, responden, isOwner }) {
-  const { nelayan, loadingNelayan } = useNelayan(responden._id);
+export default function Nelayan({ user, constants, responden, mutateResponden, isOwner }) {
+  const { nelayan, loadingNelayan, mutateNelayan } = useNelayan(responden._id);
 
   const [model, setModel] = useState(ModelNelayan);
 
@@ -460,9 +460,17 @@ export default function Nelayan({ user, constants, responden, isOwner }) {
               }}
             />
           </DataRow>
+          {/*  */}
+          {isOwner &&
+          <DataRow text={<></>}>
+            <div className="pt-4">
+              {!isDirty() && <button className="btnSubSectionDisabled">Save</button>}
+              {isDirty() && <button onClick={saveData} className="btnSubSection">Save</button>}
+            </div>
+          </DataRow>}
         </tbody>
       </table>
-      <pre>{JSON.stringify(model, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(model, null, 2)}</pre> */}
     </div>
   )
 }

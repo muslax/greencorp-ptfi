@@ -208,22 +208,27 @@ export default function KlaimAdat({ user, constants, responden, isOwner, mutate 
               </div>
             ))}
             </div>
-            {/*  */}
+            {/* manfaatDanaKemitraan  ManfaatDKPernahDiterima */}
             <input
               type="text"
               className="w-full mt-1"
               disabled={!isOwner}
-              defaultValue={model.manfaatDanaKemitraan.filter(i => !constants.ManfaatDKPernahDiterima.includes(i))[0] || ""}
+              defaultValue={model.manfaatDanaKemitraan?.filter(i => !constants.ManfaatDKPernahDiterima?.includes(i))[0] || ""}
+              onFocus={e => {
+                const array = [...model.manfaatDanaKemitraan];
+                const index = array.indexOf(e.target.value);
+                if (index >= 0) array.splice(index, 1);
+                setModel(prev => ({ ...prev, manfaatDanaKemitraan: array }));
+              }}
               onBlur={e => {
                 const val = e.target.value.trim();
-                const array = model.manfaatDanaKemitraan;
+                const array = [...model.manfaatDanaKemitraan];
                 if (val) {
                   setModel(prev => ({...prev,
                     manfaatDanaKemitraan: [...array, val]
                   }))
                 } else {
-                  const legalItems = model.manfaatDanaKemitraan
-                    .filter(item => constants.ManfaatDKPernahDiterima.includes(item));
+                  const legalItems = model.manfaatDanaKemitraan?.filter(item => constants.ManfaatDKPernahDiterima?.includes(item));
                   setModel(prev => ({...prev,
                     manfaatDanaKemitraan: legalItems
                   }))
@@ -349,7 +354,7 @@ export default function KlaimAdat({ user, constants, responden, isOwner, mutate 
           }
         </tbody>
       </table>
-      {/* <pre>{JSON.stringify(modelFields(klaim), null, 2)}</pre> */}
+      {/* <pre>{JSON.stringify(modelFields(model), null, 2)}</pre> */}
     </div>
   )
 }

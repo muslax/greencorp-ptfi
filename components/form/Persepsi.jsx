@@ -103,17 +103,22 @@ export default function Persepsi({ user, constants, responden, isOwner }) {
               type="text"
               className="w-full mt-1"
               disabled={!isOwner}
-              defaultValue={model.dampakUmum.filter(i => !constants.DampakUmum.includes(i))[0] || ""}
+              defaultValue={model.dampakUmum?.filter(i => !constants.DampakUmum?.includes(i))[0] || ""}
+              onFocus={e => {
+                const array = [...model.dampakUmum];
+                const index = array.indexOf(e.target.value);
+                if (index >= 0) array.splice(index, 1);
+                setModel(prev => ({ ...prev, dampakUmum: array }));
+              }}
               onBlur={e => {
                 const val = e.target.value.trim();
-                const array = model.dampakUmum;
+                const array = [...model.dampakUmum];
                 if (val) {
                   setModel(prev => ({...prev,
                     dampakUmum: [...array, val]
                   }))
                 } else {
-                  const legalItems = model.dampakUmum
-                    .filter(item => constants.DampakUmum.includes(item));
+                  const legalItems = model.dampakUmum?.filter(item => constants.DampakUmum?.includes(item));
                   setModel(prev => ({...prev,
                     dampakUmum: legalItems
                   }))
@@ -333,19 +338,3 @@ export default function Persepsi({ user, constants, responden, isOwner }) {
     </div>
   )
 }
-/*
-
-"Mengetahui": [],
-"DampakPTFI": [],
-"Diminati": [],
-"PilihanLapanganPekerjaan": [],
-"DampakLingkungan": [],
-"DampakKesehatan": [],
-"DampakLayananPublik": [],
-"DampakAdat": [],
-"GotongRoyong": [],
-"Dukungan": [],
-"DampakKesulitan": []
-
-
-*/
