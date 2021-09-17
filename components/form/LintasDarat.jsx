@@ -109,7 +109,7 @@ export default function LintasDarat({ user, constants, responden, isOwner }) {
           </DataRow>
           <DataRow text="Harapan untuk Pemda">
             <div className="pt-2">
-            {constants.HarapanUntukPemdaSoalPerjalanan.map(m => (
+            {constants.HarapanUntukPemdaSoalPerjalanan?.map(m => (
               <div key={m} className="">
                 <label key={m} className="inline-flex items-top space-x-2 my-1">
                   <input

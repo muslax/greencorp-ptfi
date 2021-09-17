@@ -85,7 +85,7 @@ export default function LintasAir({ user, constants, responden, isOwner }) {
 
           <DataRow text="Harapan untuk PTFI">
             <div className="pt-2">
-            {constants.BantuanSaranaAirPTFI.map(m => (
+            {constants.BantuanSaranaAirPTFI?.map(m => (
               <div key={m} className="">
                 <label key={m} className="inline-flex items-top space-x-2 my-1">
                   <input
@@ -155,7 +155,7 @@ export default function LintasAir({ user, constants, responden, isOwner }) {
 
           <DataRow text="Alasan tidak menggunakan kapal PTFI">
             <div className="pt-2">
-            {constants.SebabNonKapalPTFI.map(m => (
+            {constants.SebabNonKapalPTFI?.map(m => (
               <div key={m} className="">
                 <label key={m} className="inline-flex items-top space-x-2 my-1">
                   <input

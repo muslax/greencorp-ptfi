@@ -10,7 +10,7 @@ const Heading = ({ user, mutateUser }) => {
   return (
     <div className="fixed w-full top-0 h-auto bg-white border-b border-blue-200 z-50">
       <div className="flex space-x-2 max-w-5xl mx-auto py-4 px-6 items-center">
-        <div className="flex-grow flex-items-center space-x-2">
+        <div className="flex-grow flex items-center space-x-2">
           <Link href="/">
             <a className="group flex items-center space-x-2 text-gray-600 hover:text-blue-500">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -22,6 +22,7 @@ const Heading = ({ user, mutateUser }) => {
               </p>
             </a>
           </Link>
+          <div className="flex-grow"></div>
         </div>
         {/* <div className="flex-grow">
           <p className="inline-block text-lg leading-tight font-bold text-blue-600">Survei Rumah Tangga<br/>AMDAL PTFI - 2021</p>
