@@ -15,6 +15,8 @@ import KlaimAdat from "components/form/KlaimAdat";
 import KesehatanMasyarakat from "components/form/KesehatanMasyarakat";
 import Persepsi from "components/form/Persepsi";
 import Nelayan from "components/form/Nelayan";
+import LintasDarat from "components/form/LintasDarat";
+import LintasAir from "components/form/LintasAir";
 
 export default function Index() {
   const { user, mutateUser } = useUser({ redirectTo: "/" });
@@ -98,6 +100,24 @@ export default function Index() {
 
       <Section title="Dampak Terhadap Nelayan">
         <Nelayan
+          user={user}
+          isOwner={isOwner}
+          responden={responden}
+          constants={constants}
+        />
+      </Section>
+
+      <Section title="Dampak Lalu-lintas Darat">
+        <LintasDarat
+          user={user}
+          isOwner={isOwner}
+          responden={responden}
+          constants={constants}
+        />
+      </Section>
+
+      <Section title="Dampak Lalu-lintas Air">
+        <LintasAir
           user={user}
           isOwner={isOwner}
           responden={responden}

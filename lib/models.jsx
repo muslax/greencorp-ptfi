@@ -49,3 +49,29 @@ export const ModelNelayan = {
   harapanUntukYPMAK: [],
   harapanUntukPemda: [],
 }
+
+export const ModelLintasDarat = {
+  _id: null,
+  _rid: null,
+  menggunakanBusPTFI: "",
+  selainBusPTFI: "",
+  infoTanpaBusPTFI: "",
+  bantuanPTFI: "", // multi line
+  ketepatanBantuan: "",
+  infoKetepatanBantuan: "",
+  tanggapanTanggul: "",
+  harapanUntukPTFI: "",
+  harapanUntukPemda: [],
+}
+
+export const ModelLintasAir = {
+  _id: null,
+  _rid: null,
+  frekuensiPerjalanan: "",
+  keperluanPerjalanan: "",
+  dampakTailing: [],
+  bantuanPTFI: [],
+  frekuensiManasariPomako: "",
+  alasanTanpaKapalPTFI: [],
+  kapalNonPTFI: "",
+}

@@ -7,6 +7,8 @@ import KlaimModel from "lib/klaim-adat";
 import ModelAsetRumah from "lib/aset-rumah";
 import PersepsiModel from "lib/persepsi";
 import { ModelNelayan } from "lib/models";
+import { ModelLintasDarat } from "lib/models";
+import { ModelLintasAir } from "lib/models";
 
 const ACCEPTED_QUERIES = {}
 
@@ -129,10 +131,25 @@ ACCEPTED_QUERIES['save-responden'] = async function (req, res) {
         await db.collection(MONGO_DOC.Persepsi).insertOne(persepsi);
 
         // Add nelayan
+        // TODO if clause
         const nelayan = ModelNelayan;
         nelayan._id = ObjectId().toString();
         nelayan._rid = idResponden;
         await db.collection(MONGO_DOC.Nelayan).insertOne(nelayan);
+
+        // Add lintas darat
+        // TODO if clause
+        const lintasDarat = ModelLintasDarat;
+        lintasDarat._id = ObjectId().toString();
+        lintasDarat._rid = idResponden;
+        await db.collection(MONGO_DOC.LintasDarat).insertOne(lintasDarat);
+
+        // Add lintas air
+        // TODO if clause
+        const lintasAir = ModelLintasAir;
+        lintasAir._id = ObjectId().toString();
+        lintasAir._rid = idResponden;
+        await db.collection(MONGO_DOC.Nelayan).insertOne(lintasAir);
 
 
 
@@ -535,6 +552,62 @@ ACCEPTED_QUERIES["save-nelayan"] = async function (req, res) {
     } else {
       data._id = ObjectId().toString();
       const rs = await db.collection(MONGO_DOC.Nelayan).insertOne(data);
+      console.log(rs)
+      return res.json(rs);
+    }
+  } catch (error) {
+    return res.status(error.status || 500).end(error.message)
+  }
+}
+
+ACCEPTED_QUERIES["save-lintas-darat"] = async function (req, res) {
+  try {
+    const { db } = await connect();
+    const data = req.body;
+    console.log("DATA", data)
+
+    if (data._id) {
+      const id = data._id;
+      delete data._id;
+      delete data._rid;
+
+      const rs = await db.collection(MONGO_DOC.LintasDarat).findOneAndUpdate(
+        { _id: id },
+        { $set: { ...data }}
+      )
+      console.log(rs)
+      return res.json(rs);
+    } else {
+      data._id = ObjectId().toString();
+      const rs = await db.collection(MONGO_DOC.LintasDarat).insertOne(data);
+      console.log(rs)
+      return res.json(rs);
+    }
+  } catch (error) {
+    return res.status(error.status || 500).end(error.message)
+  }
+}
+
+ACCEPTED_QUERIES["save-lintas-air"] = async function (req, res) {
+  try {
+    const { db } = await connect();
+    const data = req.body;
+    console.log("DATA", data)
+
+    if (data._id) {
+      const id = data._id;
+      delete data._id;
+      delete data._rid;
+
+      const rs = await db.collection(MONGO_DOC.LintasAir).findOneAndUpdate(
+        { _id: id },
+        { $set: { ...data }}
+      )
+      console.log(rs)
+      return res.json(rs);
+    } else {
+      data._id = ObjectId().toString();
+      const rs = await db.collection(MONGO_DOC.LintasAir).insertOne(data);
       console.log(rs)
       return res.json(rs);
     }
