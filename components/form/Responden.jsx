@@ -108,14 +108,14 @@ const Responden = ({ user, responden, mutateResponden }) => {
     && model.umur > 0
     && model.hubungan
     && model.marital
-    && model.pendidikan
-    && model.jmlKlgSerumah > 0
-    && model.jmlOrangSerumah > 0
-    && model.agama
-    && model.melekHuruf
-    && model.suku
-    && model.bahasa
-    && model.lamaTinggal
+    // && model.pendidikan
+    // && model.jmlKlgSerumah > 0
+    // && model.jmlOrangSerumah > 0
+    // && model.agama
+    // && model.melekHuruf
+    // && model.suku
+    // && model.bahasa
+    // && model.lamaTinggal
   )
 
   function isDirty() {
