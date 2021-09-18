@@ -20,9 +20,13 @@ export default function NewEntry() {
 
       <Heading user={user} mutateUser={mutateUser} />
 
-      <div className="spacer h-24"></div>
+      <div className="spacer h-36"></div>
 
       <div className="max-w-5xl mx-auto px-6">
+        <p className="bg-pink-600 px-3 py-2 text-yellow-200 text-center font-bold">
+          Perhatian: kolom desa <span className="font-bold">TIDAK</span> bisa
+          diubah setelah data tersimpan.
+        </p>
         <Responden user={user} responden={null} />
       </div>
     </div>

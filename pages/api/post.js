@@ -67,9 +67,13 @@ ACCEPTED_QUERIES['delete-responden'] = async function (req, res) {
       await db.collection(MONGO_DOC.AsetLain).deleteMany({ _rid: id })
       await db.collection(MONGO_DOC.KlaimAdat).deleteMany({ _rid: id })
       await db.collection(MONGO_DOC.Kesmas).deleteMany({ _rid: id })
+      await db.collection(MONGO_DOC.LintasAir).deleteMany({ _rid: id })
+      await db.collection(MONGO_DOC.LintasDarat).deleteMany({ _rid: id })
+      await db.collection(MONGO_DOC.Kesmas).deleteMany({ _rid: id })
+      await db.collection(MONGO_DOC.Persepsi).deleteMany({ _rid: id })
 
       const rs = await db.collection(MONGO_DOC.Responden).findOneAndDelete({ _id: id });
-      return res.json(rs);
+      return res.json({ message: "Deleted" });
     })
   } catch (error) {
     return res.status(error.status || 500).end(error.message)
@@ -112,12 +116,6 @@ ACCEPTED_QUERIES['save-responden'] = async function (req, res) {
         rumah._rid = idResponden;
         await db.collection(MONGO_DOC.AsetRumah).insertOne(rumah);
 
-        // Add klaim adat
-        const klaimModel = KlaimModel;
-        klaimModel._id = ObjectId().toString();
-        klaimModel._rid = idResponden;
-        await db.collection(MONGO_DOC.KlaimAdat).insertOne(klaimModel);
-
         // Add kesmas
         const kesmasModel = KesmasModel;
         kesmasModel._id = ObjectId().toString(),
@@ -130,30 +128,43 @@ ACCEPTED_QUERIES['save-responden'] = async function (req, res) {
         persepsi._rid = idResponden;
         await db.collection(MONGO_DOC.Persepsi).insertOne(persepsi);
 
-        // Add nelayan
-        // TODO if clause
-        const nelayan = ModelNelayan;
-        nelayan._id = ObjectId().toString();
-        nelayan._rid = idResponden;
-        await db.collection(MONGO_DOC.Nelayan).insertOne(nelayan);
+        const kelompok = data.kelompokDesa;
+
+        // Add klaim adat A/B
+        if (kelompok == "A" || kelompok == "B") {
+          const klaimModel = KlaimModel;
+          klaimModel._id = ObjectId().toString();
+          klaimModel._rid = idResponden;
+          await db.collection(MONGO_DOC.KlaimAdat).insertOne(klaimModel);
+        }
+
+        // Add nelayan B/C
+        if (kelompok == "B" || kelompok == "C") {
+          const nelayan = ModelNelayan;
+          nelayan._id = ObjectId().toString();
+          nelayan._rid = idResponden;
+          await db.collection(MONGO_DOC.Nelayan).insertOne(nelayan);
+        }
+
 
         // Add lintas darat
-        // TODO if clause
-        const lintasDarat = ModelLintasDarat;
-        lintasDarat._id = ObjectId().toString();
-        lintasDarat._rid = idResponden;
-        await db.collection(MONGO_DOC.LintasDarat).insertOne(lintasDarat);
+        if (kelompok == "B") {
+          const lintasDarat = ModelLintasDarat;
+          lintasDarat._id = ObjectId().toString();
+          lintasDarat._rid = idResponden;
+          await db.collection(MONGO_DOC.LintasDarat).insertOne(lintasDarat);
+        }
 
         // Add lintas air
-        // TODO if clause
-        const lintasAir = ModelLintasAir;
-        lintasAir._id = ObjectId().toString();
-        lintasAir._rid = idResponden;
-        await db.collection(MONGO_DOC.Nelayan).insertOne(lintasAir);
-
-
+        if (kelompok == "C") {
+          const lintasAir = ModelLintasAir;
+          lintasAir._id = ObjectId().toString();
+          lintasAir._rid = idResponden;
+          await db.collection(MONGO_DOC.LintasAir).insertOne(lintasAir);
+        }
 
         return res.json(rs);
+        // return res.json({ message: "OK" });
       } else {
         // 1 Update responden in anggota
         await db.collection(MONGO_DOC.Anggota).findOneAndUpdate(
@@ -197,10 +208,11 @@ ACCEPTED_QUERIES['save-responden'] = async function (req, res) {
             pekerjaanUtama: data.pekerjaanUtama,
             pekerjaanLain: data.pekerjaanLain,
           }},
-          { returnDocument: "after" }
+          // { returnDocument: "after" }
         )
-        console.log(rs);
+        // console.log(rs);
         return res.json(rs);
+        // return res.json({ message: "OK" });
       }
     })
   } catch (error) {
@@ -233,7 +245,8 @@ ACCEPTED_QUERIES['save-anggota'] = async function (req, res) {
       data._id = ObjectId().toString();
       const rs = await db.collection(MONGO_DOC.Anggota).insertOne(data);
       console.log(rs)
-      return res.json(rs);
+      // return res.json(rs);
+      return res.json({ message: "OK" });
     }
   } catch (error) {
     return res.status(error.status || 500).end(error.message)
@@ -287,10 +300,11 @@ ACCEPTED_QUERIES['save-sosek'] = async function (req, res) {
         kendalaProposal: data.kendalaProposal,
         minatPelatihanUsaha: data.minatPelatihanUsaha,
       }},
-      { returnDocument: "after" }
+      // { returnDocument: "after" }
     )
-    console.log("RS", rs);
-    return res.json(rs);
+    // console.log("RS", rs);
+    // return res.json(rs);
+    return res.json({ message: "OK" });
   } catch (error) {
     return res.status(error.status || 500).end(error.message)
   }
@@ -302,7 +316,8 @@ ACCEPTED_QUERIES['delete-anggota'] = async function (req, res) {
     const { id } = req.body;
     console.log(id);
     const rs =  await db.collection(MONGO_DOC.Anggota).findOneAndDelete({ _id: id })
-    return res.json(rs);
+    // return res.json(rs);
+    return res.json({ message: "OK" });
   } catch (error) {
     return res.status(error.status || 500).end(error.message)
   }
@@ -337,13 +352,14 @@ ACCEPTED_QUERIES['save-rumah'] = async function (req, res) {
           perahuMesinTempel: data.perahuMesinTempel,
         }}
       )
-      console.log(rs)
+      // console.log(rs)
       return res.json(rs);
     } else {
       data._id = ObjectId().toString();
       const rs = await db.collection(MONGO_DOC.AsetRumah).insertOne(data);
-      console.log(rs)
+      // console.log(rs)
       return res.json(rs);
+      return res.json({ message: "OK" });
     }
   } catch (error) {
     return res.status(error.status || 500).end(error.message)
@@ -366,13 +382,14 @@ ACCEPTED_QUERIES['save-tanaman'] = async function (req, res) {
           nilaiJualPerBulan: data.nilaiJualPerBulan,
         }}
       )
-      console.log(rs)
+      // console.log(rs)
       return res.json(rs);
     } else {
       data._id = ObjectId().toString();
       const rs = await db.collection(MONGO_DOC.AsetLain).insertOne(data);
-      console.log(rs)
-      return res.json(rs);
+      // console.log(rs)
+      // return res.json(rs);
+      return res.json({ message: "OK" });
     }
   } catch (error) {
     return res.status(error.status || 500).end(error.message)
@@ -419,13 +436,14 @@ ACCEPTED_QUERIES['save-aset'] = async function (req, res) {
         // }}
         { $set: props }
       )
-      console.log(rs)
+      // console.log(rs)
       return res.json(rs);
     } else {
       data._id = ObjectId().toString();
       const rs = await db.collection(MONGO_DOC.AsetLain).insertOne(data);
-      console.log(rs)
-      return res.json(rs);
+      // console.log(rs)
+      // return res.json(rs);
+      return res.json({ message: "OK" });
     }
   } catch (error) {
     return res.status(error.status || 500).end(error.message)
@@ -436,9 +454,10 @@ ACCEPTED_QUERIES['delete-aset'] = async function (req, res) {
   try {
     const { db } = await connect();
     const { id } = req.body;
-    console.log(id);
+    // console.log(id);
     const rs =  await db.collection(MONGO_DOC.AsetLain).findOneAndDelete({ _id: id })
-    return res.json(rs);
+    // return res.json(rs);
+    return res.json({ message: "OK" });
   } catch (error) {
     return res.status(error.status || 500).end(error.message)
   }
@@ -456,12 +475,14 @@ ACCEPTED_QUERIES['save-klaim-adat'] = async function (req, res) {
         { $set: data }
       )
       console.log(rs)
-      return res.json(rs);
+      // return res.json(rs);
+      return res.json({ message: "OK" });
     } else {
       data._id = ObjectId().toString();
       const rs = await db.collection(MONGO_DOC.KlaimAdat).insertOne(data);
-      console.log(rs)
-      return res.json(rs);
+      // console.log(rs)
+      // return res.json(rs);
+      return res.json({ message: "OK" });
     }
   } catch (error) {
     return res.status(error.status || 500).end(error.message)
@@ -491,13 +512,14 @@ ACCEPTED_QUERIES['save-kesmas'] = async function (req, res) {
         { _id: id },
         { $set: { ...data }}
       )
-      console.log(rs)
+      // console.log(rs)
       return res.json(rs);
     } else {
       data._id = ObjectId().toString();
       const rs = await db.collection(MONGO_DOC.Kesmas).insertOne(data);
-      console.log(rs)
-      return res.json(rs);
+      // console.log(rs)
+      // return res.json(rs);
+      return res.json({ message: "OK" });
     }
   } catch (error) {
     return res.status(error.status || 500).end(error.message)
@@ -508,7 +530,7 @@ ACCEPTED_QUERIES["save-persepsi"] = async function (req, res) {
   try {
     const { db } = await connect();
     const data = req.body;
-    console.log("DATA", data)
+    // console.log("DATA", data)
 
     if (data._id) {
       const id = data._id;
@@ -519,13 +541,15 @@ ACCEPTED_QUERIES["save-persepsi"] = async function (req, res) {
         { _id: id },
         { $set: { ...data }}
       )
-      console.log(rs)
-      return res.json(rs);
+      // console.log(rs)
+      // return res.json(rs);
+      return res.json({ message: "OK" });
     } else {
       data._id = ObjectId().toString();
       const rs = await db.collection(MONGO_DOC.Persepsi).insertOne(data);
-      console.log(rs)
-      return res.json(rs);
+      // console.log(rs)
+      // return res.json(rs);
+      return res.json({ message: "OK" });
     }
   } catch (error) {
     return res.status(error.status || 500).end(error.message)
@@ -547,13 +571,15 @@ ACCEPTED_QUERIES["save-nelayan"] = async function (req, res) {
         { _id: id },
         { $set: { ...data }}
       )
-      console.log(rs)
-      return res.json(rs);
+      // console.log(rs)
+      // return res.json(rs);
+      return res.json({ message: "OK" });
     } else {
       data._id = ObjectId().toString();
       const rs = await db.collection(MONGO_DOC.Nelayan).insertOne(data);
-      console.log(rs)
-      return res.json(rs);
+      // console.log(rs)
+      // return res.json(rs);
+      return res.json({ message: "OK" });
     }
   } catch (error) {
     return res.status(error.status || 500).end(error.message)
@@ -575,13 +601,15 @@ ACCEPTED_QUERIES["save-lintas-darat"] = async function (req, res) {
         { _id: id },
         { $set: { ...data }}
       )
-      console.log(rs)
-      return res.json(rs);
+      // console.log(rs)
+      // return res.json(rs);
+      return res.json({ message: "OK" });
     } else {
       data._id = ObjectId().toString();
       const rs = await db.collection(MONGO_DOC.LintasDarat).insertOne(data);
-      console.log(rs)
-      return res.json(rs);
+      // console.log(rs)
+      // return res.json(rs);
+      return res.json({ message: "OK" });
     }
   } catch (error) {
     return res.status(error.status || 500).end(error.message)
@@ -592,7 +620,7 @@ ACCEPTED_QUERIES["save-lintas-air"] = async function (req, res) {
   try {
     const { db } = await connect();
     const data = req.body;
-    console.log("DATA", data)
+    // console.log("DATA", data)
 
     if (data._id) {
       const id = data._id;
@@ -603,13 +631,15 @@ ACCEPTED_QUERIES["save-lintas-air"] = async function (req, res) {
         { _id: id },
         { $set: { ...data }}
       )
-      console.log(rs)
-      return res.json(rs);
+      // console.log(rs)
+      // return res.json(rs);
+      return res.json({ message: "OK" });
     } else {
       data._id = ObjectId().toString();
       const rs = await db.collection(MONGO_DOC.LintasAir).insertOne(data);
-      console.log(rs)
-      return res.json(rs);
+      // console.log(rs)
+      // return res.json(rs);
+      return res.json({ message: "OK" });
     }
   } catch (error) {
     return res.status(error.status || 500).end(error.message)

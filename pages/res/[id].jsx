@@ -37,13 +37,15 @@ export default function Index() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Heading user={user} mutateUser={mutateUser} />
+      <Heading user={user} mutateUser={mutateUser} responden={responden} />
 
-      <div className="spacer h-24"></div>
+      <div className="spacer h-28"></div>
 
       <Section>
         <Responden user={user} responden={responden} mutateResponden={mutateResponden} />
       </Section>
+
+      {/* <p className="text-3xl text-center my-10">{responden.kelompokDesa}</p> */}
 
       <Section title="Anggota Keluarga">
         <AnggotaKeluarga user={user} responden={responden} />
@@ -69,6 +71,41 @@ export default function Index() {
         />
       </Section>
 
+      {/* Tiga desa */}
+      {/* ========= */}
+      <p className="text-center text-pink-600 p-10">(Sementara belum ada: bagian khusus untuk Desa Nayaro/Nawaripi/Koperapoka)</p>
+
+      {responden.kelompokDesa == "B" &&
+      <Section title="Dampak Lalu-lintas Darat">
+        <LintasDarat
+          user={user}
+          isOwner={isOwner}
+          responden={responden}
+          constants={constants}
+        />
+      </Section>}
+
+      {responden.kelompokDesa == "C" &&
+      <Section title="Dampak Lalu-lintas Air">
+        <LintasAir
+          user={user}
+          isOwner={isOwner}
+          responden={responden}
+          constants={constants}
+        />
+      </Section>}
+
+      {(responden.kelompokDesa == "B" || responden.kelompokDesa == "C") &&
+      <Section title="Dampak Terhadap Nelayan">
+        <Nelayan
+          user={user}
+          isOwner={isOwner}
+          responden={responden}
+          constants={constants}
+        />
+      </Section>}
+
+      {(responden.kelompokDesa == "A" || responden.kelompokDesa == "B") &&
       <Section title="Klaim Masyarakat Adat">
         <KlaimAdat
           user={user}
@@ -77,7 +114,7 @@ export default function Index() {
           constants={constants}
           mutate={mutateResponden}
         />
-      </Section>
+      </Section>}
 
       <Section title="Kesehatan Masyarakat">
         <KesehatanMasyarakat
@@ -97,34 +134,6 @@ export default function Index() {
           constants={constants}
         />
       </Section>
-
-      <Section title="Dampak Terhadap Nelayan">
-        <Nelayan
-          user={user}
-          isOwner={isOwner}
-          responden={responden}
-          constants={constants}
-        />
-      </Section>
-
-      <Section title="Dampak Lalu-lintas Darat">
-        <LintasDarat
-          user={user}
-          isOwner={isOwner}
-          responden={responden}
-          constants={constants}
-        />
-      </Section>
-
-      <Section title="Dampak Lalu-lintas Air">
-        <LintasAir
-          user={user}
-          isOwner={isOwner}
-          responden={responden}
-          constants={constants}
-        />
-      </Section>
-
 
       <div className="h-80"></div>
     </div>

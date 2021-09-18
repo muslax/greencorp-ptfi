@@ -1,0 +1,45 @@
+A
+Lembah Waa-Banti
+Lembah Tsinga
+Lembah Aroanop
+
+B
+Nawaripi
+Koperapoka
+Tipuka
+Ayuka
+Nayaro
+
+C
+Fanamo
+Omawita
+Otakwa
+
+LINTAS DARAT  Ayuka, Koperapoka, Nawaripi, Nayaro, Tipuka
+NELAYAN       Ayuka, Nawaripi, Koperapoka, Nayaro, Tipuka
+
+LINTAS AIR    Fanamo, Omawita, Otakwa
+NELAYAN       Fanamo, Omawita, Otakwa
+
+Responden
+Anggota
+Sosek
+Aset
+
+if (Nayaro/Nawaripi/Koperapoka) { TigaDesa }
+
+if (Kelompok B) { LintasDarat }
+if (Kelompok C) { LintasAir }
+
+if (Kelompok B/C) { Nelayan }
+
+if (Kelompok A/B) { KlaimAdat }
+
+Kesmas
+Persepsi
+
+==========
+Nelayan       B, C
+LintasAir     C
+LintasDarat   B
+KlaimAdat     A, B
