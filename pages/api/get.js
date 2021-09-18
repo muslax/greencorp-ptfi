@@ -48,6 +48,18 @@ ACCEPTED_QUERIES['get-constants'] = async function getConstants(req, res) {
   }
 }
 
+ACCEPTED_QUERIES['get-section-constants'] = async function getConstants(req, res) {
+  try {
+    const { db } = await connect();
+    const { section } = req.query
+    const rs = await db.collection(MONGO_DOC.Constants).findOne({ _id: section });
+
+    return res.json( rs );
+  } catch (error) {
+    return res.status(error.status || 500).end(error.message)
+  }
+}
+
 ACCEPTED_QUERIES['get-responden'] = async function (req, res) {
   try {
     const { db } = await connect();
@@ -204,6 +216,19 @@ ACCEPTED_QUERIES['get-lintas-air'] = async function (req, res) {
     const { rid } = req.query;
 
     const rs = await db.collection(MONGO_DOC.LintasAir).findOne({ _rid: rid });
+
+    return res.json( rs );
+  } catch (error) {
+    return res.status(error.status || 500).end(error.message)
+  }
+}
+
+ACCEPTED_QUERIES['get-nayaro'] = async function (req, res) {
+  try {
+    const { db } = await connect();
+    const { rid } = req.query;
+
+    const rs = await db.collection(MONGO_DOC.TigaDesa).findOne({ _rid: rid });
 
     return res.json( rs );
   } catch (error) {

@@ -354,7 +354,7 @@ export default function KlaimAdat({ user, constants, responden, isOwner, mutate 
           }
         </tbody>
       </table>
-      {/* <pre>{JSON.stringify(modelFields(model), null, 2)}</pre> */}
+      {/* <pre>{JSON.stringify(model, null, 2)}</pre> */}
     </div>
   )
 }

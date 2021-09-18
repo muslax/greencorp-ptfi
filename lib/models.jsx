@@ -75,3 +75,31 @@ export const ModelLintasAir = {
   alasanTanpaKapalPTFI: [],
   kapalNonPTFI: "",
 }
+
+export const ModelNayaro = {
+  _id: null,
+  _rid: null,
+  ronaUmum: "",
+  infoRonaUmum: "",
+  ronaHasilTangkapan: "",
+  infoRonaHasilTangkapan: "",
+  jenisKesulitan: [],
+  infoJenisKesulitan: "",
+  jikaTailingMeningkat: [],
+  // infoJikaTailingMeningkat: "",
+  jikaTanggulDiperpanjang: "",
+  merubahPencaharian: "",
+  alasanMerubahPencaharian: "",
+  mengikutiPelatihan: "",
+  pelatihanDiinginkan: "",
+  pelatihanNelayan: "",
+  infoPelatihanNelayan: "",
+  bantuanPTFI: [],
+  harapanUntukPTFI: [],
+  harapanUntukPemda: [],
+}
+
+/*
+
+
+*/

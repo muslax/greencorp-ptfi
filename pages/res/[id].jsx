@@ -17,6 +17,7 @@ import Persepsi from "components/form/Persepsi";
 import Nelayan from "components/form/Nelayan";
 import LintasDarat from "components/form/LintasDarat";
 import LintasAir from "components/form/LintasAir";
+import Nayaro from "components/form/Nayaro";
 
 export default function Index() {
   const { user, mutateUser } = useUser({ redirectTo: "/" });
@@ -71,9 +72,18 @@ export default function Index() {
         />
       </Section>
 
-      {/* Tiga desa */}
+      {/* Nayaro, Nawaripi, Koperapoka */}
       {/* ========= */}
-      <p className="text-center text-pink-600 p-10">(Sementara belum ada: bagian khusus untuk Desa Nayaro/Nawaripi/Koperapoka)</p>
+      {/* <p className="text-center text-pink-600 p-10">(Sementara belum ada: bagian khusus untuk Desa Nayaro/Nawaripi/Koperapoka)</p> */}
+      {(responden.desa == "Nayaro" || responden.desa == "Nawaripi" || responden.desa == "Koperapoka") &&
+        <Section title="Untuk Nayaro, Nawaripi, Koperapoka">
+        <Nayaro
+          user={user}
+          isOwner={isOwner}
+          responden={responden}
+          constants={constants}
+        />
+      </Section>}
 
       {responden.kelompokDesa == "B" &&
       <Section title="Dampak Lalu-lintas Darat">

@@ -9,6 +9,7 @@ import PersepsiModel from "lib/persepsi";
 import { ModelNelayan } from "lib/models";
 import { ModelLintasDarat } from "lib/models";
 import { ModelLintasAir } from "lib/models";
+import { ModelNayaro } from "lib/models";
 
 const ACCEPTED_QUERIES = {}
 
@@ -69,8 +70,9 @@ ACCEPTED_QUERIES['delete-responden'] = async function (req, res) {
       await db.collection(MONGO_DOC.Kesmas).deleteMany({ _rid: id })
       await db.collection(MONGO_DOC.LintasAir).deleteMany({ _rid: id })
       await db.collection(MONGO_DOC.LintasDarat).deleteMany({ _rid: id })
-      await db.collection(MONGO_DOC.Kesmas).deleteMany({ _rid: id })
+      await db.collection(MONGO_DOC.Nelayan).deleteMany({ _rid: id })
       await db.collection(MONGO_DOC.Persepsi).deleteMany({ _rid: id })
+      await db.collection(MONGO_DOC.TigaDesa).deleteMany({ _rid: id })
 
       const rs = await db.collection(MONGO_DOC.Responden).findOneAndDelete({ _id: id });
       return res.json({ message: "Deleted" });
@@ -161,6 +163,16 @@ ACCEPTED_QUERIES['save-responden'] = async function (req, res) {
           lintasAir._id = ObjectId().toString();
           lintasAir._rid = idResponden;
           await db.collection(MONGO_DOC.LintasAir).insertOne(lintasAir);
+        }
+
+        const desa = data.desa;
+
+        // Tiga desa
+        if (desa == "Nayaro" || desa == "Nawaripi" || desa == "Koperapoka") {
+          const tigaDesa = ModelNayaro;
+          tigaDesa._id = ObjectId().toString();
+          tigaDesa._rid = idResponden;
+          await db.collection(MONGO_DOC.TigaDesa).insertOne(tigaDesa);
         }
 
         return res.json(rs);
@@ -637,6 +649,36 @@ ACCEPTED_QUERIES["save-lintas-air"] = async function (req, res) {
     } else {
       data._id = ObjectId().toString();
       const rs = await db.collection(MONGO_DOC.LintasAir).insertOne(data);
+      // console.log(rs)
+      // return res.json(rs);
+      return res.json({ message: "OK" });
+    }
+  } catch (error) {
+    return res.status(error.status || 500).end(error.message)
+  }
+}
+
+ACCEPTED_QUERIES["save-nayaro"] = async function (req, res) {
+  try {
+    const { db } = await connect();
+    const data = req.body;
+    // console.log("DATA", data)
+
+    if (data._id) {
+      const id = data._id;
+      delete data._id;
+      delete data._rid;
+
+      const rs = await db.collection(MONGO_DOC.TigaDesa).findOneAndUpdate(
+        { _id: id },
+        { $set: { ...data }}
+      )
+      // console.log(rs)
+      // return res.json(rs);
+      return res.json({ message: "OK" });
+    } else {
+      data._id = ObjectId().toString();
+      const rs = await db.collection(MONGO_DOC.TigaDesa).insertOne(data);
       // console.log(rs)
       // return res.json(rs);
       return res.json({ message: "OK" });

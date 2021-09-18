@@ -98,7 +98,6 @@ export default function Persepsi({ user, constants, responden, isOwner }) {
               </div>
             ))}
             </div>
-            {/*  */}
             <input
               type="text"
               className="w-full mt-1"
