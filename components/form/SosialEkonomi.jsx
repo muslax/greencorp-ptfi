@@ -277,91 +277,100 @@ export default function SosialEkonomi({ user, isOwner, responden, constants, mut
           <DataRow text="Pengeluaran untuk konsumsi">
             <input
               type="number"
+              step="0.1" min="0"
               className="mt-1"
               disabled={!isOwner}
               value={model.belanjaMakanan}
-              onChange={e => setModel(m => ({...m, belanjaMakanan: parseInt(e.target.value) }))}
+              onChange={e => setModel(m => ({...m, belanjaMakanan: parseFloat(e.target.value) }))}
             />
           </DataRow>
           <DataRow text="Pengeluaran untuk pendidikan">
             <input
               type="number"
+              step="0.1" min="0"
               className="mt-1"
               disabled={!isOwner}
               value={model.belanjaPendidikan}
-              onChange={e => setModel(m => ({...m, belanjaPendidikan: parseInt(e.target.value) }))}
+              onChange={e => setModel(m => ({...m, belanjaPendidikan: parseFloat(e.target.value) }))}
             />
           </DataRow>
           <DataRow text="Pengeluaran untuk kesehatan">
             <input
               type="number"
+              step="0.1" min="0"
               className="mt-1"
               disabled={!isOwner}
               value={model.belanjaKesehatan}
-              onChange={e => setModel(m => ({...m, belanjaKesehatan: parseInt(e.target.value) }))}
+              onChange={e => setModel(m => ({...m, belanjaKesehatan: parseFloat(e.target.value) }))}
             />
           </DataRow>
           <DataRow text="Pengeluaran untuk transportasi">
             <input
               type="number"
+              step="0.1" min="0"
               className="mt-1"
               disabled={!isOwner}
               value={model.belanjaTransportasi}
-              onChange={e => setModel(m => ({...m, belanjaTransportasi: parseInt(e.target.value) }))}
+              onChange={e => setModel(m => ({...m, belanjaTransportasi: parseFloat(e.target.value) }))}
             />
           </DataRow>
           <DataRow text="Pengeluaran untuk komunikasi">
             <input
               type="number"
+              step="0.1" min="0"
               className="mt-1"
               disabled={!isOwner}
               value={model.belanjaKomunikasi}
-              onChange={e => setModel(m => ({...m, belanjaKomunikasi: parseInt(e.target.value) }))}
+              onChange={e => setModel(m => ({...m, belanjaKomunikasi: parseFloat(e.target.value) }))}
             />
           </DataRow>
           <DataRow text="Pengeluaran untuk tempat tinggal">
             <input
               type="number"
+              step="0.1" min="0"
               className="mt-1"
               disabled={!isOwner}
               value={model.belanjaTempatTinggal}
-              onChange={e => setModel(m => ({...m, belanjaTempatTinggal: parseInt(e.target.value) }))}
+              onChange={e => setModel(m => ({...m, belanjaTempatTinggal: parseFloat(e.target.value) }))}
             />
           </DataRow>
           <DataRow text="Pengeluaran untuk listrik">
             <input
               type="number"
+              step="0.1" min="0"
               className="mt-1"
               disabled={!isOwner}
               value={model.belanjaListrik}
-              onChange={e => setModel(m => ({...m, belanjaListrik: parseInt(e.target.value) }))}
+              onChange={e => setModel(m => ({...m, belanjaListrik: parseFloat(e.target.value) }))}
             />
           </DataRow>
           <DataRow text="Pengeluaran untuk cicilan">
             <input
               type="number"
+              step="0.1" min="0"
               className="mt-1"
               disabled={!isOwner}
               value={model.belanjaCicilan}
-              onChange={e => setModel(m => ({...m, belanjaCicilan: parseInt(e.target.value) }))}
+              onChange={e => setModel(m => ({...m, belanjaCicilan: parseFloat(e.target.value) }))}
             />
           </DataRow>
           <DataRow text="Pengeluaran untuk lainnya">
             <input
               type="number"
+              step="0.1" min="0"
               className="mt-1"
               disabled={!isOwner}
               value={model.belanjaLainnya}
-              onChange={e => setModel(m => ({...m, belanjaLainnya: parseInt(e.target.value) }))}
+              onChange={e => setModel(m => ({...m, belanjaLainnya: parseFloat(e.target.value) }))}
             />
           </DataRow>
 
-          {isOwner && (
+          {/* {isOwner && (
             <DataRow text="&nbsp;">
               {!dirty3() && <button className="btnSubSectionDisabled">Save</button>}
               {dirty3() && <button onClick={saveData} className="btnSubSection">Save</button>}
             </DataRow>
-          )}
+          )} */}
 
           <tr className="align-top">
             <td colSpan="2" className="py-3">
@@ -389,13 +398,12 @@ export default function SosialEkonomi({ user, isOwner, responden, constants, mut
             {model.tabungan == "Ada" && (
               <>
               <input
-                type="number"
-                min={0}
+                type="number" step="0.1" min="0"
                 className="w-36 mr-3 mt-1"
                 placeholder="Berapa?"
                 disabled={!isOwner}
                 value={model.jumlahTabungan}
-                onChange={e => setModel(m => ({...m, jumlahTabungan: parseInt(e.target.value) }))}
+                onChange={e => setModel(m => ({...m, jumlahTabungan: parseFloat(e.target.value) }))}
               />
               <input
                 type="text"
@@ -439,8 +447,8 @@ export default function SosialEkonomi({ user, isOwner, responden, constants, mut
 
           {isOwner && (
             <DataRow text="&nbsp;">
-              {!dirty4() && <button className="btnSubSectionDisabled">Save</button>}
-              {dirty4() && <button onClick={saveData} className="btnSubSection">Save</button>}
+              {!dirty4() && !dirty3() && <button className="btnSubSectionDisabled">Save</button>}
+              {(dirty4() || dirty3()) && <button onClick={saveData} className="btnSubSection">Save</button>}
             </DataRow>
           )}
           <tr className="align-top">

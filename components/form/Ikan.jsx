@@ -144,32 +144,32 @@ export default function Ikan({ responden, isOwner, daftar, mutate }) {
               <DataRow text="Jumlah dikonsumsi">
                 <div className="flex items-center">
                   <input
-                    type="number"
+                    type="number" step="1" min="0"
                     className="w-20 mt-1"
                     value={model.kgDikonsumsiPerMinggu}
                     onChange={e => setModel(m => ({...m, kgDikonsumsiPerMinggu: parseInt(e.target.value)}))}
                   />
-                  <span className="ml-2">kg/minggu</span>
+                  <span className="ml-2">ekor/minggu</span>
                 </div>
               </DataRow>
               <DataRow text="Jumlah dijual">
                 <div className="flex items-center">
                   <input
-                    type="number"
+                    type="number" step="1" min="0"
                     className="w-20 mt-1"
                     value={model.kgDijualPerMinggu}
                     onChange={e => setModel(m => ({...m, kgDijualPerMinggu: parseInt(e.target.value)}))}
                   />
-                  <span className="ml-2">kg/minggu</span>
+                  <span className="ml-2">ekor/minggu</span>
                 </div>
               </DataRow>
               <DataRow text="Nilai penjualan">
                 <div className="flex items-center">
                   <input
-                    type="number"
+                    type="number" step="0.1" min="0"
                     className="w-40 mt-1"
                     value={model.nilaiJualPerMinggu}
-                    onChange={e => setModel(m => ({...m, nilaiJualPerMinggu: parseInt(e.target.value)}))}
+                    onChange={e => setModel(m => ({...m, nilaiJualPerMinggu: parseFloat(e.target.value)}))}
                   />
                   <span className="ml-2">Rp/minggu</span>
                 </div>

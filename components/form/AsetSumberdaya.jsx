@@ -165,11 +165,11 @@ export default function AsetSumberdaya({ user, isOwner, responden, constants, mu
           <DataRow text="Luas tanah">
             <div className="flex items-center">
               <input
-                type="number"
+                type="number" step="0.1" min="0"
                 className="w-24 mt-1 mr-2"
                 disabled={!isOwner}
                 value={model.luasTanah}
-                onChange={e => setModel(m => ({...m, luasTanah: parseInt(e.target.value) }))}
+                onChange={e => setModel(m => ({...m, luasTanah: parseFloat(e.target.value) }))}
               />
               <span className="mr-2">m2</span>
             </div>
@@ -177,11 +177,11 @@ export default function AsetSumberdaya({ user, isOwner, responden, constants, mu
           <DataRow text="Luas bangungan">
             <div className="flex items-center">
               <input
-                type="number"
+                type="number" step="0.1" min="0"
                 className="w-24 mt-1 mr-2"
                 disabled={!isOwner}
                 value={model.luasBangunan}
-                onChange={e => setModel(m => ({...m, luasBangunan: parseInt(e.target.value) }))}
+                onChange={e => setModel(m => ({...m, luasBangunan: parseFloat(e.target.value) }))}
               />
               <span className="mr-2">m2</span>
             </div>
@@ -189,11 +189,11 @@ export default function AsetSumberdaya({ user, isOwner, responden, constants, mu
           <DataRow text="Luas lahan produktif">
             <div className="flex items-center">
               <input
-                type="number"
+                type="number" step="0.1" min="0"
                 className="w-24 mt-1 mr-2"
                 disabled={!isOwner}
                 value={model.luasLahanProduktif}
-                onChange={e => setModel(m => ({...m, luasLahanProduktif: parseInt(e.target.value) }))}
+                onChange={e => setModel(m => ({...m, luasLahanProduktif: parseFloat(e.target.value) }))}
               />
               <span className="mr-2">m2</span>
             </div>
@@ -201,11 +201,11 @@ export default function AsetSumberdaya({ user, isOwner, responden, constants, mu
           <DataRow text="Luas lahan tidak produktif">
             <div className="flex items-center">
               <input
-                type="number"
+                type="number" step="0.1" min="0"
                 className="w-24 mt-1 mr-2"
                 disabled={!isOwner}
                 value={model.luasLahanNonProduktif}
-                onChange={e => setModel(m => ({...m, luasLahanNonProduktif: parseInt(e.target.value) }))}
+                onChange={e => setModel(m => ({...m, luasLahanNonProduktif: parseFloat(e.target.value) }))}
               />
               <span className="mr-2">m2</span>
             </div>
@@ -213,11 +213,11 @@ export default function AsetSumberdaya({ user, isOwner, responden, constants, mu
           <DataRow text="Luas lahan lainnya">
             <div className="flex items-center">
               <input
-                type="number"
+                type="number" step="0.1" min="0"
                 className="w-24 mt-1 mr-2"
                 disabled={!isOwner}
                 value={model.luasLahanLain}
-                onChange={e => setModel(m => ({...m, luasLahanLain: parseInt(e.target.value) }))}
+                onChange={e => setModel(m => ({...m, luasLahanLain: parseFloat(e.target.value) }))}
               />
               <span className="mr-2">m2</span>
             </div>
@@ -248,7 +248,7 @@ export default function AsetSumberdaya({ user, isOwner, responden, constants, mu
           <DataRow text="Sepeda">
             <div className="flex items-center">
               <input
-                type="number"
+                type="number" step="1" min="0"
                 className="w-16 mt-1 mr-2"
                 disabled={!isOwner}
                 value={model.sepeda}
@@ -260,7 +260,7 @@ export default function AsetSumberdaya({ user, isOwner, responden, constants, mu
           <DataRow text="Sepeda motor">
             <div className="flex items-center">
               <input
-                type="number"
+                type="number" step="1" min="0"
                 className="w-16 mt-1 mr-2"
                 disabled={!isOwner}
                 value={model.sepedaMotor}
@@ -272,7 +272,7 @@ export default function AsetSumberdaya({ user, isOwner, responden, constants, mu
           <DataRow text="Mobil (roda 4 atau lebih)">
             <div className="flex items-center">
               <input
-                type="number"
+                type="number" step="1" min="0"
                 className="w-16 mt-1 mr-2"
                 disabled={!isOwner}
                 value={model.mobil}
@@ -284,7 +284,7 @@ export default function AsetSumberdaya({ user, isOwner, responden, constants, mu
           <DataRow text="Traktor">
             <div className="flex items-center">
               <input
-                type="number"
+                type="number" step="1" min="0"
                 className="w-16 mt-1 mr-2"
                 disabled={!isOwner}
                 value={model.traktor}
@@ -296,7 +296,7 @@ export default function AsetSumberdaya({ user, isOwner, responden, constants, mu
           <DataRow text="Perahu/sampan tradisional">
             <div className="flex items-center">
               <input
-                type="number"
+                type="number" step="1" min="0"
                 className="w-16 mt-1 mr-2"
                 disabled={!isOwner}
                 value={model.perahuTradisional}
@@ -308,7 +308,7 @@ export default function AsetSumberdaya({ user, isOwner, responden, constants, mu
           <DataRow text="Perahu mesin tempel">
             <div className="flex items-center">
               <input
-                type="number"
+                type="number" step="1" min="0"
                 className="w-16 mt-1 mr-2"
                 disabled={!isOwner}
                 value={model.perahuMesinTempel}

@@ -141,11 +141,11 @@ export default function HasilHutan({ responden, isOwner, daftar, mutate }) {
               <DataRow text="Jumlah dikonsumsi">
                 <div className="flex items-center">
                   <input
-                    type="number"
+                    type="number" step="0.1" min="0"
                     className="w-20 mt-1"
                     disabled={!model.satuan}
                     value={model.dikonsumsi}
-                    onChange={e => setModel(m => ({...m, dikonsumsi: parseInt(e.target.value)}))}
+                    onChange={e => setModel(m => ({...m, dikonsumsi: parseFloat(e.target.value)}))}
                   />
                   <span className="ml-2">{model.satuan ? model.satuan : "..."}</span>
                 </div>
@@ -153,11 +153,11 @@ export default function HasilHutan({ responden, isOwner, daftar, mutate }) {
               <DataRow text="Jumlah dijual">
                 <div className="flex items-center">
                   <input
-                    type="number"
+                    type="number" step="0.1" min="0"
                     className="w-20 mt-1"
                     disabled={!model.satuan}
                     value={model.dijual}
-                    onChange={e => setModel(m => ({...m, dijual: parseInt(e.target.value)}))}
+                    onChange={e => setModel(m => ({...m, dijual: parseFloat(e.target.value)}))}
                   />
                   <span className="ml-2">{model.satuan ? model.satuan : "..."}</span>
                 </div>
@@ -165,11 +165,11 @@ export default function HasilHutan({ responden, isOwner, daftar, mutate }) {
               <DataRow text="Nilai penjualan">
                 <div className="flex items-center">
                   <input
-                    type="number"
+                    type="number" step="0.1" min="0"
                     className="w-40 mt-1"
                     disabled={!model.satuan}
                     value={model.nilaiJual}
-                    onChange={e => setModel(m => ({...m, nilaiJual: parseInt(e.target.value)}))}
+                    onChange={e => setModel(m => ({...m, nilaiJual: parseFloat(e.target.value)}))}
                   />
                   <span className="ml-2">{model.satuan ? model.satuan : "..."}</span>
                 </div>

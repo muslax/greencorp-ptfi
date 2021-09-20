@@ -135,10 +135,10 @@ export default function Tanaman({ responden, isOwner, daftar, mutate }) {
               <DataRow text="Luas dipanen">
                 <div className="flex items-center">
                   <input
-                    type="number"
+                    type="number" step="0.1" min="0"
                     className="w-32 mt-1"
                     value={model.luasPanen}
-                    onChange={e => setModel(m => ({...m, luasPanen: parseInt(e.target.value)}))}
+                    onChange={e => setModel(m => ({...m, luasPanen: parseFloat(e.target.value)}))}
                   />
                   <span className="ml-2">m2</span>
                 </div>
@@ -146,10 +146,10 @@ export default function Tanaman({ responden, isOwner, daftar, mutate }) {
               <DataRow text="Jumlah dikonsumsi">
                 <div className="flex items-center">
                   <input
-                    type="number"
+                    type="number" step="0.1" min="0"
                     className="w-32 mt-1"
                     value={model.kgDikonsumsiPerTahun}
-                    onChange={e => setModel(m => ({...m, kgDikonsumsiPerTahun: parseInt(e.target.value)}))}
+                    onChange={e => setModel(m => ({...m, kgDikonsumsiPerTahun: parseFloat(e.target.value)}))}
                   />
                   <span className="ml-2">kg/tahun</span>
                 </div>
@@ -157,10 +157,10 @@ export default function Tanaman({ responden, isOwner, daftar, mutate }) {
               <DataRow text="Jumlah dijual">
                 <div className="flex items-center">
                   <input
-                    type="number"
+                    type="number" step="0.1" min="0"
                     className="w-32 mt-1"
                     value={model.kgDijualPerTahun}
-                    onChange={e => setModel(m => ({...m, kgDijualPerTahun: parseInt(e.target.value)}))}
+                    onChange={e => setModel(m => ({...m, kgDijualPerTahun: parseFloat(e.target.value)}))}
                   />
                   <span className="ml-2">kg/tahun</span>
                 </div>
@@ -168,10 +168,10 @@ export default function Tanaman({ responden, isOwner, daftar, mutate }) {
               <DataRow text="Nilai penjualan">
                 <div className="flex items-center">
                   <input
-                    type="number"
+                    type="number" step="0.1" min="0"
                     className="w-40 mt-1"
                     value={model.nilaiJualPerTahun}
-                    onChange={e => setModel(m => ({...m, nilaiJualPerTahun: parseInt(e.target.value)}))}
+                    onChange={e => setModel(m => ({...m, nilaiJualPerTahun: parseFloat(e.target.value)}))}
                   />
                   <span className="ml-2">Rp/tahun</span>
                 </div>
