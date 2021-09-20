@@ -854,7 +854,7 @@ export default function KesehatanMasyarakat({ user, constants, responden, isOwne
             onChange={e => setModel(m => ({...m, frekuensiMiras: (e.target.value) }))}
           />}
 
-          <DataRow text="Persoalan air bersih sehari-hari">
+          <DataRow text="Dampak konsumsi miras">
             <div className="pt-2">
             {constants.DampakMiras.map(m => (
               <div key={m} className="">
